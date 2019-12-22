@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container">
+        <section id="search-exam">
+            <div class="input-group col-sm-12 col-lg-12 col-md-12">
+                <form id="search_form" class="form-horizontal" method="get" autocomplete="off" onsubmit="return inputCheck(this)">
+                    {% csrf_token %}
+                    <input type="text" name="examName" id="examName" class="form-control" placeholder="Search For Exam" value="">
+                    <a type="submit"><span class="glyphicon glyphicon-search form-control-feedback"></span></a>
+                </form>
+                <div id="searchResults" class="searchResult"></div>
+            </div>
+        </section>
+        <section>
+
+<!--    {% if search_result %}-->
+            {{search_result | safe}}
+<!--        {% for ques in search_result %}-->
+<!--            {{ques | safe }}-->
+<!--        {% endfor %}-->
+<!--    {{ search_result }}-->
+
+    {% endif %}
+        </section>
+    </div>
+{% endblock %}

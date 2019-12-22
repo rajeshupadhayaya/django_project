@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container">
+    <form action="{% url 'onlineexam:student_exam_submit' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="exam_id" value="{{questions.0}}">
+        <div class="row form-group student-info">
+            <div class="col-md-4">
+                <label>Email id</label>
+                <input type="text" class="form-control" name="student_email" required>
+            </div>
+            <div class="col-md-4">
+                <label>Name</label>
+                <input type="text" class="form-control" name="student_name" required>
+            </div>
+            <div class="col-md-4">
+                <label>Phone No</label>
+                <input type="text" class="form-control" name="student_phone_no" required>
+            </div>
+        </div>
+        {% for question in questions.1 %}
+        <div class="question-blk">
+            <div class="row form-group">
+                <div class="col-sm-1">Ques {{ question.ques.question_number }}.</div>
+                <div class="col-sm-11">{{ question.ques }}</div>
+            </div>
+            <div class="row form-check">
+                <div class="col-sm-1">Ans</div>
+
+                {% for ans in question.ans %}
+                    <div class="col-sm-11">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type="radio" class="form-check-input" value="{{ ans.fields.choice_1 }}" name="ans{{ ans.fields.question_number }}">
+                                <label class="form-check-label">{{ ans.fields.choice_1 }}</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="radio" class="form-check-input" value="{{ ans.fields.choice_2 }}" name="ans{{ ans.fields.question_number }}">
+                                <label class="form-check-label">{{ ans.fields.choice_2 }}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type="radio" class="form-check-input" value="{{ ans.fields.choice_3 }}" name="ans{{ ans.fields.question_number }}">
+                                <label class="form-check-label">{{ ans.fields.choice_3 }}</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="radio" class="form-check-input" value="{{ ans.fields.choice_4 }}" name="ans{{ ans.fields.question_number }}">
+                                <label class="form-check-label">{{ ans.fields.choice_4 }}</label>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+        </div>
+
+        {% endfor %}
+        <div class="text-center">
+            <button type="submit" class="btn btn-success btn-lg" >Submit</button>
+        </div>
+
+    </form>
+</div>
+
+
+<script>
+$(document).ready(function(){
+   $(document).bind("contextmenu",function(e){
+      return false;
+   });
+});
+</script>
+{% endblock %}

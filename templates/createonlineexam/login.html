@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% load staticfiles %}
+<div class="col-sm-4"></div>
+<div class="col-sm-4">
+    <form action="{% url 'onlineexam:login' %}" method="post" id="loginForm" onsubmit="return loginValidate(this);" >
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        <div class="form-header text-center">Login</div>
+        <div id="div-login-msg">
+            <span id="error1" class="hidden"></span>
+        </div>
+
+        <div class="form-group has-feedback" id="email-box">
+            <input type="text" class="form-control" id="logInEmail" name="logInEmail" placeholder="Email"
+                   onblur="validate('logInEmail','email-box');">
+            <span class="form-control-feedback glyphicon glyphicon-user"></span>
+            <span id="loginEmailError" class="hidden"></span>
+        </div>
+        <div class="form-group has-feedback" id="password-box">
+            <input type="password" class="form-control" id="logInPassword" name="logInPassword" placeholder="Password"
+                   onblur="validate('logInPassword','password-box');">
+            <span class="form-control-feedback glyphicon glyphicon-eye-open"></span>
+            <span id="loginPwdError" class="hidden"></span>
+        </div>
+        <div class="form-group">
+            <label for="remember" class="btn-link">
+                <input type="checkbox" name="remember" id="remember"> Remember me
+            </label>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+            </div>
+            <div>
+                {% comment %}<button id="login_lost_btn" type="button" class="btn btn-link">Lost Password?</button>
+                <button id="login_register_btn" type="button" class="btn btn-link">Register</button>{% endcomment %}
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

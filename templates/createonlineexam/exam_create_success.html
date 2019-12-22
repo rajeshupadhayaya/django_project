@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% load staticfiles %}
+<div class="container">
+    <div class="message-block">
+        <p>Your Exam Id is <b>{{ exam_id }}</b></p>
+        <p>Below is the exam link:</br>
+
+            <a href="">
+                {{ request.scheme }}:{{ request.META.HTTP_HOST }}{% url 'onlineexam:student_exam' exam_id %}
+            </a>
+        </p>
+    </div>
+
+</div>
+
+{% endblock %}

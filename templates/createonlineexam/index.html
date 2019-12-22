@@ -1,0 +1,321 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% load staticfiles %}
+
+<!--facebook like button code-->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+<!--End of code-->
+
+
+    <div class="jumbotron" id="create-exam" style="margin:0;">
+        <div class="container">
+            <h1> Create Online Exam</h1>
+            <p> This website provides a platform to create online objective exam. This is totally free no hidden charges.</p>
+            <p> Presently this website is not yet competed most of the functionality will be available in future and we hope you will like it.</p>
+        </div>
+        <div id="know-more" class="container text-center" >
+            <h2>Know more about upcoming features</h2>
+                <div class="arrow">
+                    <a href=""><img src="{% static "createonlineexam/images/downArrow.png" %}" id="show"></a>
+                </div>
+        </div>
+        <div id="more-info" class="more-info">
+            <p>The next release will have a login feature, which will allow teacher to login and create exam from his/her dashboard
+                and manage his/her student and also view the result of the students.</p>
+            <p>The next release will have lot more features, be patient we will release it soon.</p>
+            <p>Below Search Option Will enable soon.....</p>
+            <p>We are waiting for you to create exams</p>
+            <div class="text-center arrow">
+                <a href=""><img src="{% static "createonlineexam/images/upArrow.png" %}" id="hide"></a>
+            </div>
+
+
+        </div>
+        <section class="container">
+            <div class="row" id="create-exam">
+
+                <div class="col-md-6 text-center">
+
+                    <a href="{% url 'onlineexam:create_exam' %}">
+                        <input type="button" class="btn btn-primary btn-lg" id="Subjective" value="Objective Exam">
+                    </a>
+                </div>
+
+                <div class="col-md-6 text-center">
+
+                    <a href="{% url 'onlineexam:view_result' %}">
+                        <input type="button" class="btn btn-primary btn-lg" id="View Result" value="Result">
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section class="container" id="searchExam">
+            <h3 class="text-center">Search Exams</h3>
+            <div class="row" id="search-exam">
+                <div class="col-sm-2">
+
+                </div>
+                <div class="input-group col-lg-8 col-md-8 col-sm-8">
+
+                    <form id="search_form" class="form-horizontal" action="{% url 'onlineexam:search_exam_page' %}" method="get" onsubmit="return inputCheck(this)" autocomplete="off">
+                        {% csrf_token %}
+<!--                        <fieldset disabled>-->
+<!--                            <input type="text" name="examName" id="examName" class="form-control" placeholder="Search For Exam" onkeyup="findExam()">-->
+                            <input type="text" name="examName" id="examName" class="form-control" placeholder="Search For Exam">
+                            <a type="submit"><span class="glyphicon glyphicon-search form-control-feedback"></span></a>
+<!--                        </fieldset>-->
+                    </form>
+                    <div id="searchResults" class="searchResult"></div>
+
+                </div>
+                <div class="col-sm-2"></div>
+        </section>
+
+    </div>
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    	<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+					</button>
+				</div>
+
+                <!-- Begin # DIV Form -->
+                <div id="div-forms">
+
+                    <!-- Begin # Login Form -->
+                    <form action="{% url 'onlineexam:login' %}" method="post" id="loginForm" onsubmit="return loginValidate(this);" >
+                        {% csrf_token %}
+		                <div class="modal-body">
+                            <div class="form-header text-center">Login</div>
+                            <div id="div-login-msg">
+                                <span id="error1" class="hidden"></span>
+                            </div>
+
+                            <div class="form-group has-feedback" id="email-box">
+{#                                <label for="InputEmail" class="control-label">Email Id/Username</label>#}
+                                <input type="text" class="form-control" id="logInEmail" name="logInEmail" placeholder="Email"
+                                       onblur="validate('logInEmail','email-box');">
+                                <span class="form-control-feedback glyphicon glyphicon-user"></span>
+                                <span id="loginEmailError" class="hidden"></span>
+                            </div>
+                            <div class="form-group has-feedback" id="password-box">
+{#                                <label for="InputPassword">Password</label>#}
+                                <input type="password" class="form-control" id="logInPassword" name="logInPassword" placeholder="Password"
+                                       onblur="validate('logInPassword','password-box');">
+                                <span class="form-control-feedback glyphicon glyphicon-eye-open"></span>
+                                <span id="loginPwdError" class="hidden"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="remember" class="btn-link">
+                                    <input type="checkbox" name="remember" id="remember"> Remember me
+                                </label>
+                            </div>
+        		    	</div>
+				        <div class="modal-footer">
+                            <div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+                            </div>
+				    	    <div>
+                                <button id="login_lost_btn" type="button" class="btn btn-link">Lost Password?</button>
+                                <button id="login_register_btn" type="button" class="btn btn-link">Register</button>
+                            </div>
+				        </div>
+                    </form>
+                    <!-- End # Login Form -->
+
+                    <!-- Begin | Lost Password Form -->
+                    <form id="forget-password" style="display:none;" method="POST" action="{% url 'onlineexam:forget_password'%}">
+                        {% csrf_token %}
+    	    		    <div class="modal-body">
+                            <div class="form-header text-center">Forget Password</div>
+		    				<input id="lost_email" class="form-control" type="text" placeholder="E-Mail id/Username" required>
+            			</div>
+		    		    <div class="modal-footer">
+                            <div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Send</button>
+                            </div>
+                            <div>
+                                <button id="lost_login_btn" type="button" class="btn btn-link">Log In</button>
+                                <button id="lost_register_btn" type="button" class="btn btn-link">Register</button>
+                            </div>
+		    		    </div>
+                    </form>
+                    <!-- End | Lost Password Form -->
+
+                    <!-- Begin | Register Form -->
+                    <form id="registerWithUsForm" action="{% url 'onlineexam:register'%}" style="display:none;" method="POST" onsubmit="return registerValidate(this);">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <div class="form-header text-center">Register</div>
+                            <span id="error2" class="hidden"></span>
+                            <div class="form-group" id="name-box">
+{#                                <label for="InputName">Name *</label>#}
+                                <input type="text" name="first_name" class="form-control" id="registerName" placeholder="Name"
+                                       onblur="validate('registerName','name-box');">
+{#                                <span id="registerNameerror" class="hidden"></span>#}
+                            </div>
+                            <div class="form-group" id="register-mail-box">
+{#                                <label for="InputEmail">Email Id *</label>#}
+                                <input type="email" class="form-control" name="email" id="registerEmail" placeholder="Email"
+                                       onblur="validate('registerEmail','register-mail-box');">
+{#                                <span id="registerEmailerror" class="hidden"> </span>#}
+                            </div>
+                            <div class="form-group" id="password-box">
+{#                                <label for="InputPassword">Password *</label>#}
+                                <input type="password" class="form-control" name="password" id="registerPassword" placeholder="Password"
+                                       onblur="validate('registerPassword','password-box');">
+{#                                <span id="registerPassworderror"> </span>#}
+                            </div>
+                            <div class="form-group" id="password1-box">
+{#                                <label for="InputPasswordRepeat">Confirm Password: *</label>#}
+                                <input type="password" class="form-control" name="confirm_password" id="registerPassword1" placeholder="Confirm Password"
+                                       onblur="validate('registerPassword1','password1-box');">
+{#                                <span id="registerPassword1error"> </span>#}
+                            </div>
+                            <div class="form-group" id="user-type-box">
+                                <select id="typeOfRegister" name="user_type" class="form-control" onblur="validate('typeOfRegister','user-type-box')">
+                                    <option selected disabled>Select user type</option>
+                                    <option value="1">I am a teacher</option>
+                                    <option value="2">I am a student</option>
+                                </select>
+{#                                <span class="typeOfRegistererror"> </span>#}
+                            </div>
+                            <div class="form-group">
+                                <label for="tnCcheckbox">
+                                    <input type="checkbox" id="tnCcheckbox" name="tnCcheckbox" value="T&C">
+                                    <font color="blue" ><i>I accept Terms and Conditions</i></font>
+                                </label>
+                                <span class="tnCcheckboxerror"> </span>
+
+                            </div>
+                        </div>
+		    		    <div class="modal-footer">
+                            <div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
+                            </div>
+                            <div>
+                                <button id="register_login_btn" type="button" class="btn btn-link">Log In</button>
+                                <button id="register_lost_btn" type="button" class="btn btn-link">Lost Password?</button>
+                            </div>
+		    		    </div>
+                    </form>
+                    <!-- End | Register Form -->
+
+                </div>
+                <!-- End # DIV Form -->
+
+			</div>
+		</div>
+	</div>
+    <!-- END # MODAL LOGIN -->
+
+    <section class="contact">
+        <div class="row" id="contact">
+
+            <div class="col-lg-7">
+
+                <div class="carousel slide" id='information-slide' data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#information-slide" data-slide-to="0" class="active"></li>
+                        <li data-target="#information-slide" data-slide-to="1"></li>
+                        <li data-target="#information-slide" data-slide-to="2"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <img src="{% static "createonlineexam/images/loading.gif" %}" class="lazy" data-original="{% static "createonlineexam/images/image1.jpg" %}" alt="image1">
+                            <div class="carousel-caption">
+                                <h2>Learn And Give Exam</h2>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="{% static "createonlineexam/images/loading.gif" %}" class="lazy" data-original="{% static "createonlineexam/images/image2.jpg" %}" alt="image2">
+                            <div class="carousel-caption">
+                                <h2>Save Paper Go Online</h2>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="{% static "createonlineexam/images/loading.gif" %}" class="lazy" data-original="{% static "createonlineexam/images/image3.jpg" %}" alt="image3">
+                            <div class="carousel-caption">
+                                <h2>No need to check Exam<br>
+                                We are here to give you instant result</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#information-slide" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#information-slide" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            <div class="container col-lg-5 vertical-line" style="padding: 15px">
+                <h3 class="text-center"><b>You Can Write Us and Give Suggestions.</b></h3>
+                <span class="label-success text-center formResponse" id="formResponse"></span>
+                <form id="douhavesuggestion" class="form-horizontal" name="douhavesuggestion">
+                    {% csrf_token %}
+                    <div class="form-group col-md-3  col-lg-12">
+                        <label for="name" class="text-left">Your Name *</label> <input type="type" class="form-control" id="name" placeholder="Enter Your Name" name="name" required>
+                    </div>
+                    <div class="form-group col-md-3  col-lg-12">
+                        <label for="email" class="text-left">Your email *</label> <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
+                    </div>
+                    <div class="form-group col-md-3  col-lg-12">
+                        <label for="message">Your Message *</label> <textarea class="form-control" id="message" placeholder="Type your message  here..." name="message" required></textarea>
+                    </div>
+                    <div class="form-group col-md-3  col-lg-12 text-center">
+                        <button type="button" role="button" onclick="sendMessage();" name="submitButton" id="submitButton" class="btn btn-primary">Send</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </section>
+<div class="page-footer">
+    <div id="like-us" class="text-center">
+        <div class="row">
+            <div class="col-md-2 col-lg-2 col-sm-2">
+                <h3>Like Us:</h3>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2">
+                <div class="fb-like" data-href="https://createonlineexam.com" data-width="15" data-layout="box_count" data-action="like" data-show-faces="true" data-share="true"></div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-via="createonlineexam" data-count="vertical" data-size="large" data-hashtags="COE" data-dnt="true">Tweet</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2">
+                <script src="http://platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+                <script type="IN/Share" data-url="createonlineexam.com" data-counter="top"></script>
+            </div>
+            <div class="col-lg-2 col-sm-2 col-md-2">
+                <!-- Place this tag in your head or just before your close body tag. -->
+                <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+                <!-- Place this tag where you want the +1 button to render. -->
+                <div class="g-plusone" data-size="tall"></div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+

@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<a type="button" id="help-me" href="#" role="button" data-toggle="modal" data-target="#help" class="help"></a>
+<div class="container" >
+<form class="form-horizontal" id="objective-exam-create-form" action = "{% url 'onlineexam:submit_question'%}" method = 'post'>
+    <article id = "apage_1" class="info-container text-center">
+        {% csrf_token %}
+        <h2 class="text-center">Create Exam</h2>
+        <span id="errormsg" class="hidden"></span>
+        <div class="form-group">
+{#                <label class="col-md-3" for="name"> Name * </label>#}
+            <div class="col-md-12 text-left">
+                <input type="textbox" id="name" class="form-control" name="name" maxlength="50" placeholder="Enter Your Name" required>
+            </div>
+        </div>
+        <div class="form-group">
+{#                <label class="col-md-3" for="name"> Name * </label>#}
+            <div class="col-md-12 text-left">
+                <input type="email" id="mailid" class="form-control" name="mailid" maxlength="50" placeholder="Enter Your Email Id" required>
+            </div>
+        </div>
+        <div class="form-group">
+{#                <label class="col-md-3" for="examname"> Exam Name * </label>#}
+            <div class="col-md-12 text-left">
+                <input type="textarea" id="examname" class="form-control" name="examname" maxlength="150" placeholder="Enter Exam Name" required>
+            </div>
+        </div>
+        <div class="form-group">
+{#                <label class="col-md-3" for="phonenumber">Phone Number * </label>#}
+            <div class="col-md-12 text-left">
+                <input type="textarea" id="phonenumber" class="form-control" name="phonenumber" maxlength="12" placeholder="Enter Phone Number" required><br>
+            </div>
+        </div>
+    </article>
+    <article id= "apage2" class="container-effect">
+
+        {% for i in loop_times %}
+            <div class="form-group quest-block text-center">
+
+                <label class="col-md-1 text-left" for="ques{{ i }}">Ques {{ i }}.</label>
+                <div class="col-md-11 text-left">
+                    <textarea name="ques{{ i }}" class="form-control" maxlength="500" required></textarea><br>
+                </div>
+
+                <label class="col-md-1 text-left" for="ans{{ i }}">Ans. </label>
+                <label class="col-md-1 text-left" for="ans{{ i }}a">A.</label>
+                <div class="col-md-4 text-left">
+                    <input type="textarea" class="form-control" name="ans{{ i }}a" class="textbox1" maxlength="100" required>
+                </div>
+                <label class="col-md-1 text-right" for="ans{{ i }}b">B.</label>
+                <div class="col-md-5 text-left">
+                    <input type="textarea" class="form-control" name="ans{{ i }}b" class="textbox1" maxlength="100" required><br>
+                </div>
+                <label class="col-md-1 text-left">
+                </label>
+                <label class="col-md-1 text-left" for="ans{{ i }}c">C.</label>
+                <div class="col-md-4 text-left">
+                    <input type="textarea" class="form-control" name="ans{{ i }}c" maxlength="100" required>
+                </div>
+                <label class="col-md-1 text-right" for="ans{{ i }}d">D.</label>
+                <div class="col-md-5 text-left">
+                    <input type="textarea" class="form-control" name="ans{{ i }}d" maxlength="100" required><br>
+                </div>
+                <label class="col-md-2 text-left" for="ans{{ i }}correct"> Correct Answer:</label>
+                <div class="col-md-10 text-left">
+                    <input type="textarea" class="form-control" name="ans{{ i }}correct" maxlength="100" required><br><br>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="text-right">
+            <input type='submit' class="btn btn-success btn-lg text-right" value= 'Create Exam' name='objsubmit'>
+        </div>
+    </article>
+</form>
+</div>
+<div class="modal fade" id="help" tabindex="-1" role="form" aria-labelledby="help">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center">Help To Create Objective Exam </h4>
+            </div>
+            <div class="modal-body">
+                <p>Please fill all the values asked on the first page, as they all are mandatory fields and you will not allow to move to the second page.
+                </p><p>Your Email id will be saved and use for communication purpose, so be sure you are providing the correct email id.</p>
+                <p>Exam name is the name which will appear as the heading of the exam to the student and it will also use in future to search exam by name.</p>
+                <p>We store phone number for future preference.</p>
+                <p>After filling all these details click on the <b>NEXT</b> button it will direct you to the main exam creation page.</p>
+                <p>This page will have 10 questions and each question will have<b> 4 options</b> which will be given as choice to the student.</p>
+                <p>This page also have one more field name <b>Correct Answer</b>. Here you need to write the correct answer.<b> Please do not write
+                    the option number </b>as it will give you the wrong result. You need to write the complete answer in <b>Correct Answer</b> filed.</p>
+                <p>Default time limit for the exam is <b>20 min</b>. We are working on it, in future you will be allow to choose the time limit of the exam.This feature
+                will come on the next release.</p>
+                <p>The result will be auto calculated by the system and the score will be send to you at your email address and you can also view all the result
+                in result tab on the <a href="http://createonlineexam.com">home page</a>.</p>
+                <p>After successful Exam Creation, A Email with all the details will be sent to your email id.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+{% endblock %}

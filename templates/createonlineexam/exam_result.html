@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% load staticfiles %}
+<div class="container">
+    <div class="message-block">
+        <p>Hello, <b>{{ result.name }}</b></p>
+        <p>Your score is:</br>
+            {{result.score}} %
+        </p>
+    </div>
+
+</div>
+
+{% endblock %}

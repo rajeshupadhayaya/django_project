@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Create Online Exam for your students!!">
+        <meta name="keywords" content="Create Online Exam, Objective exam, get result generated automatically">
+        <meta name="author" content="Rajesh Upadhayaya">
+        {% load staticfiles %}
+    {#    {% collectstatic %}#}
+        <link rel="icon" type="image/ico" href="{% static "/createonlineexam/images/favicon.ico" %}">
+        <title>Create Online Exam</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="{% static "/createonlineexam/css/bootstrap-theme.min.css" %}">
+        <!--Modified personal css-->
+        <link rel="stylesheet" type="text/css" href="{% static "/createonlineexam/css/style.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "/user/style.css" %}">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Crimson+Text:600' rel='stylesheet' type='text/css'>
+    </head>
+
+    <body>
+    {% include 'user/navbar_user.html' %}
+    <div class="row">
+        <div class="col-sm-2 user-menu">
+            <div class="profile-pic">
+                <img src="{% static 'user/images/emp.png' %}" class="img-fluid">
+            </div>
+            <div class="">
+                <ul>
+                    <li>Create Exam</li>
+                    <li>Show Result</li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-10">
+
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+
+
+    </body>
+
+    <script scr="{% static "createonlineexam/js/jquery.lazyload.min.js" %}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script src="{% static "createonlineexam/js/jquery.form.js" %}"></script>
+    <!--validate script to validate form-->
+    <script src="{% static "createonlineexam/js/Validation.js" %}"></script>
+    <script src="{% static "createonlineexam/js/script.js" %}"></script>
+    <script src="{% static "createonlineexam/js/notify.js" %}"></script>
+    <script src="{% static "createonlineexam/js/paging.js" %}"></script>
+
+
+    <script type="text/javascript">
+        function goBack() {
+            window.history.back();
+        }
+
+    </script>
+
+    <a href="#create-exam" class="scrollToTop"><img src="{% static "createonlineexam/images/top.png" %}" height="40" width="40"></a>
+    <footer class="text-center">
+
+        <div id="footer" class="footer">
+
+            <p>All Rights Reserved</p>
+        </div>
+    </footer>
+</html>
