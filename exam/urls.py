@@ -1,15 +1,13 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.urls import path
 from . import views
 from django.views.generic import TemplateView
-from user import views as users
 from django.contrib.auth import views as auth_views
 app_name = 'onlineexam'
 
 urlpatterns = [
     # url(r'^', views.index, name='index')
     url(r'^$', views.IndexView.as_view(), name='index'),
-    url(r'^dashboard/$', users.DashboardView, name='dashboard'),
     url(r'^create/$', views.Objective_exam_create_View, name='create_exam'),
     url(r'^submit/$', views.Objective_exam_submit_View, name='submit_question'),
     # url(r'^exam-created/(?P<exam_id>\d+)/$', TemplateView.as_view(), name='submit_success'),
@@ -25,5 +23,6 @@ urlpatterns = [
     url(r'^forget-password/$', views.forget_password, name='forget_password'),
     path('exam/<str:exam_id>', views.Exam_View.as_view(), name='student_exam'),
     path('submit-exam', views.Student_Exam_submit.as_view(), name='student_exam_submit'),
-    path('result/<id>', views.Student_Result.as_view(), name='student_result')
+    path('result/<id>', views.Student_Result.as_view(), name='student_result'),
+    url(r'^', include('user.urls'))
 ]

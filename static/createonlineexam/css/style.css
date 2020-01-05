@@ -729,4 +729,8 @@ ul
     border-radius: 5px;
     margin-bottom: 20px;
 }
+.copy_text{
+    cursor: pointer;
+    text-decoration: underline;
+}
 /*////////////////////////////////*/

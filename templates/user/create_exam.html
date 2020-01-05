@@ -1,0 +1,23 @@
+{% extends "user/user_layout.html" %}
+
+{% block content %}
+{% load staticfiles %}
+<form class="form-horizontal" id="objective-exam-create-form" action = "{% url 'onlineexam:submit_create_exam'%}" method = 'post'>
+    {% csrf_token %}
+    <div class="quest-block">
+        <div class="row">
+            <div class="col-md-2">
+                <label for="examname">Exam Name</label>
+            </div>
+            <div class="col-md-8">
+                <input type="text" name="examname" class="form-control" id="examname">
+            </div>
+        </div>
+
+    </div>
+
+
+    {% include '../objective_exam_layout.html' %}
+</form>
+
+{% endblock %}

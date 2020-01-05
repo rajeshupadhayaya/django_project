@@ -25,18 +25,37 @@
 
     <body>
     {% include 'user/navbar_user.html' %}
-    <div class="row">
-        <div class="col-sm-2 user-menu">
-            <div class="profile-pic">
-                <img src="{% static 'user/images/emp.png' %}" class="img-fluid">
-            </div>
-            <div class="">
-                <ul>
-                    <li>Create Exam</li>
-                    <li>Show Result</li>
 
-                </ul>
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="user-menu">
+                <div class="profile-pic">
+                    <img src="{% static 'media/' %}{{user.profile_pic}}" class="img-fluid">
+                </div>
+                <hr>
+
+                {% if user.user_type is 1%}
+                <div class="user-menu-option">
+                    <ul>
+                        <a href="{% url 'onlineexam:all_exams' %}"><li>Show all Exams</li></a>
+                        <a href="{% url 'onlineexam:new_exam' %}"><li>Create New Exam</li></a>
+                        <a href="{% url 'onlineexam:check_result' %}"><li>Check Result</li></a>
+
+                    </ul>
+                </div>
+                {%endif%}
+
+                {% if user.user_type is 2%}
+                <div class="user-menu-option">
+                    <ul>
+                        <li><a href="#">My Exams</a></li>
+
+                    </ul>
+                </div>
+                {%endif%}
+
             </div>
+
         </div>
         <div class="col-sm-10">
 
@@ -44,7 +63,6 @@
             {% endblock %}
         </div>
     </div>
-
 
 
     </body>
@@ -55,11 +73,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
     <script src="{% static "createonlineexam/js/jquery.form.js" %}"></script>
+    <script src="{% static "script.js" %}"></script>
     <!--validate script to validate form-->
-    <script src="{% static "createonlineexam/js/Validation.js" %}"></script>
-    <script src="{% static "createonlineexam/js/script.js" %}"></script>
-    <script src="{% static "createonlineexam/js/notify.js" %}"></script>
-    <script src="{% static "createonlineexam/js/paging.js" %}"></script>
+<!--    <script src="{% static "createonlineexam/js/Validation.js" %}"></script>-->
+<!--    <script src="{% static "createonlineexam/js/script.js" %}"></script>-->
+<!--    <script src="{% static "createonlineexam/js/notify.js" %}"></script>-->
+<!--    <script src="{% static "createonlineexam/js/paging.js" %}"></script>-->
 
 
     <script type="text/javascript">

@@ -82,7 +82,9 @@ class AccountManager(BaseUserManager):
 
         account = self.model(
             email=self.normalize_email(email),
-            user_type=kwargs.get('user_type'), first_name=kwargs.get('first_name')
+            user_type=kwargs.get('user_type'), first_name=kwargs.get('first_name'),
+            last_name=kwargs.get('last_name'),
+            profile_pic='emp.png'
         )
 
         account.set_password(password)
@@ -111,6 +113,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=40, blank=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+    profile_pic = models.CharField(max_length=50, blank=True)
     # tagline = models.CharField(max_length=140, blank=True)
     user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES)
 

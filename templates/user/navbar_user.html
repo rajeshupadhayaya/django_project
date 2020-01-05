@@ -12,11 +12,11 @@
           {{user.get_username}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a href="http://localhost/createonlinemvc/public/profile">Profile</a>
-            <a href="http://localhost/createonlinemvc/public/dashboard">DashBoard</a>
-            <a href="{% url 'onlineexam:logout' %}">Logout</a>
+            <a class="dropdown-item" href="{% url 'onlineexam:dashboard' %}">DashBoard</a>
+            <a class="dropdown-item" href="{% url 'onlineexam:profile' %}">Profile</a>
+            <a class="dropdown-item" href="{% url 'onlineexam:logout' %}">Logout</a>
             <div class="dropdown-divider"></div>
-            <a href="#">Help</a>
+            <a href="#" class="dropdown-item" >Help</a>
         </div>
       </li>
     </ul>

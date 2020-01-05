@@ -159,28 +159,24 @@
                             <div class="form-header text-center">Register</div>
                             <span id="error2" class="hidden"></span>
                             <div class="form-group" id="name-box">
-{#                                <label for="InputName">Name *</label>#}
-                                <input type="text" name="first_name" class="form-control" id="registerName" placeholder="Name"
+                                <input type="text" name="first_name" class="form-control" id="registerName" placeholder="First Name"
                                        onblur="validate('registerName','name-box');">
-{#                                <span id="registerNameerror" class="hidden"></span>#}
+                            </div>
+                            <div class="form-group" id="last-name-box">
+                                <input type="text" name="last_name" class="form-control" id="registerlastName" placeholder="Last Name"
+                                       onblur="validate('registerName','last-name-box');">
                             </div>
                             <div class="form-group" id="register-mail-box">
-{#                                <label for="InputEmail">Email Id *</label>#}
                                 <input type="email" class="form-control" name="email" id="registerEmail" placeholder="Email"
                                        onblur="validate('registerEmail','register-mail-box');">
-{#                                <span id="registerEmailerror" class="hidden"> </span>#}
                             </div>
                             <div class="form-group" id="password-box">
-{#                                <label for="InputPassword">Password *</label>#}
                                 <input type="password" class="form-control" name="password" id="registerPassword" placeholder="Password"
                                        onblur="validate('registerPassword','password-box');">
-{#                                <span id="registerPassworderror"> </span>#}
                             </div>
                             <div class="form-group" id="password1-box">
-{#                                <label for="InputPasswordRepeat">Confirm Password: *</label>#}
                                 <input type="password" class="form-control" name="confirm_password" id="registerPassword1" placeholder="Confirm Password"
                                        onblur="validate('registerPassword1','password1-box');">
-{#                                <span id="registerPassword1error"> </span>#}
                             </div>
                             <div class="form-group" id="user-type-box">
                                 <select id="typeOfRegister" name="user_type" class="form-control" onblur="validate('typeOfRegister','user-type-box')">
@@ -188,7 +184,6 @@
                                     <option value="1">I am a teacher</option>
                                     <option value="2">I am a student</option>
                                 </select>
-{#                                <span class="typeOfRegistererror"> </span>#}
                             </div>
                             <div class="form-group">
                                 <label for="tnCcheckbox">

@@ -1,0 +1,64 @@
+<a type="button" id="help-me" href="#" role="button" data-toggle="modal" data-target="#help" class="help"></a>
+<div class="container">
+    <div class="jumbotron">
+        <form class="form-horizontal" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="Exam Id">Exam Id:</label>
+                <input type="text" class="form-control" name="exam_id" id="exam_id" value="{{exam_id}}"
+                       placeholder="Please provide your Exam Id" required>
+            </div>
+
+            <button type="submit" value="View Result" class="btn btn-info">View Result</button>
+
+
+        </form>
+    </div>
+    {% if results %}
+    <div class="result-block">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Name</th>
+                    <th>Exam Date</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            {% for result in results %}
+                <tr>
+                    <th>{{forloop.counter}}</th>
+                    <td>{{result.name}}</td>
+                    <td>{{result.exam_date}}</td>
+                    <td>{{result.score}}</td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+
+
+
+<div class="modal fade" id="help" tabindex="-1" role="form" aria-labelledby="help">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center">How to Search Exam Result </h4>
+            </div>
+            <div class="modal-body">
+                <p>Please provide the exam id in <b> EXAM ID </b> field. This id was provided during the creation  of exam and the same was share
+                    with you with e-mail.
+                <p>Please refer your email for exam id.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

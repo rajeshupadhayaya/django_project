@@ -1,0 +1,31 @@
+{% extends "user/user_layout.html" %}
+
+{% block content %}
+{% load staticfiles %}
+
+<div class="user-content">
+    <h3>Welcome {{user.first_name}} {{user.last_name}}</h3>
+
+    <table class="table table-striped">
+        <thead>
+            <th>S.No</th>
+            <th>Exam Name</th>
+            <th>Exam Id</th>
+            <th>Exam Url</th>
+            <th>Created On</th>
+        </thead>
+        {% for exam in exams %}
+        <tr>
+            <th>{{forloop.counter}}</th>
+            <td>{{exam.exam_name}}</td>
+            <td>{{exam.exam_id}}</td>
+            <td onclick="copy('exam_id_{{forloop.counter}}')" title="Click to copy" class="copy_text" id="exam_id_{{forloop.counter}}">
+                {{ request.scheme }}:{{ request.META.HTTP_HOST }}{% url 'onlineexam:student_exam' exam.exam_id %}</td>
+            <td>{{exam.exam_create_date}}</td>
+        </tr>
+        {% endfor %}
+
+
+    </table>
+</div>
+{% endblock %}

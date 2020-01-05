@@ -35,43 +35,7 @@
         </div>
     </article>
     <article id= "apage2" class="container-effect">
-
-        {% for i in loop_times %}
-            <div class="form-group quest-block text-center">
-
-                <label class="col-md-1 text-left" for="ques{{ i }}">Ques {{ i }}.</label>
-                <div class="col-md-11 text-left">
-                    <textarea name="ques{{ i }}" class="form-control" maxlength="500" required></textarea><br>
-                </div>
-
-                <label class="col-md-1 text-left" for="ans{{ i }}">Ans. </label>
-                <label class="col-md-1 text-left" for="ans{{ i }}a">A.</label>
-                <div class="col-md-4 text-left">
-                    <input type="textarea" class="form-control" name="ans{{ i }}a" class="textbox1" maxlength="100" required>
-                </div>
-                <label class="col-md-1 text-right" for="ans{{ i }}b">B.</label>
-                <div class="col-md-5 text-left">
-                    <input type="textarea" class="form-control" name="ans{{ i }}b" class="textbox1" maxlength="100" required><br>
-                </div>
-                <label class="col-md-1 text-left">
-                </label>
-                <label class="col-md-1 text-left" for="ans{{ i }}c">C.</label>
-                <div class="col-md-4 text-left">
-                    <input type="textarea" class="form-control" name="ans{{ i }}c" maxlength="100" required>
-                </div>
-                <label class="col-md-1 text-right" for="ans{{ i }}d">D.</label>
-                <div class="col-md-5 text-left">
-                    <input type="textarea" class="form-control" name="ans{{ i }}d" maxlength="100" required><br>
-                </div>
-                <label class="col-md-2 text-left" for="ans{{ i }}correct"> Correct Answer:</label>
-                <div class="col-md-10 text-left">
-                    <input type="textarea" class="form-control" name="ans{{ i }}correct" maxlength="100" required><br><br>
-                </div>
-            </div>
-        {% endfor %}
-        <div class="text-right">
-            <input type='submit' class="btn btn-success btn-lg text-right" value= 'Create Exam' name='objsubmit'>
-        </div>
+        {% include '../objective_exam_layout.html' %}
     </article>
 </form>
 </div>

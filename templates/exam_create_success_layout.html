@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="message-block">
+        <p>Your Exam Id is <b>{{ exam_id }}</b></p>
+        <p>Below is the exam link:</br>
+
+            <p class="copy_text" onclick="copy('new_exam_id')" id="new_exam_id">
+                {{ request.scheme }}:{{ request.META.HTTP_HOST }}{% url 'onlineexam:student_exam' exam_id %}
+            </p>
+        </p>
+    </div>
+
+</div>

@@ -55,7 +55,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'onlineexam.urls'
-LOGOUT_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = '/'
 
 TEMPLATES = [
     {
@@ -159,3 +159,7 @@ EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
 
 AUTH_USER_MODEL = 'exam.Account'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "static/media")
+
+MEDIA_URL = '/media/'
